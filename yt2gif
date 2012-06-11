@@ -1,0 +1,103 @@
+#!/bin/bash
+
+# REQUIRES youtube-dl ffmpeg imagemagick
+
+#This script will convert YouTube videos into gif animations
+guide()
+{
+cat << EOF
+
+usage: $0 [options] full youtube URL or video file name
+
+This script uses the tools below to create a .gif animation from a video file or a youtube link fdgfdg .
+Dependencies: youtube-dl ffmpeg imagemagic
+Version: 0.02 22nd Apr 2010
+
+OPTIONS:
+   -h      Show this message
+   -s      Start of the animation (default 0)
+            ##:##:##[.###] or in seconds
+   -d      duration of the animation, this is NOT an end time. (default 10)
+            ##:##:##[.###] or in seconds
+   -f      Frames per second for the gif animation (default 15)
+   -p      Width of the final gif file, ratio is preserved (default 200)
+            Pixels
+   -o      Output file name without any extensions (default is "animation")
+
+EOF
+}
+
+STARTTIME=0
+DURATION=10
+FPS=15
+WIDTH=200
+FILENAME="animation"
+
+while getopts “hs:d:f:p:o:” OPTION
+do
+     case $OPTION in
+         h)
+             guide
+             exit 1
+             ;;
+         s)
+             STARTTIME=$OPTARG
+             ;;
+         d)
+             DURATION=$OPTARG
+             ;;
+         f)
+             FPS=$OPTARG
+             ;;
+         p)
+             WIDTH=$OPTARG
+             ;;
+         o)
+             FILENAME=$OPTARG
+             ;;
+         ?)
+             echo "Wrong parameter" $OPTARG
+             guide
+             exit 1
+             ;;
+     esac
+done
+
+shift $(($OPTIND - 1))
+TARGET=$1
+
+if [[ $TARGET = http???www?youtube?com* ]]
+then
+	echo HERE
+	youtube-dl -o "youtubedl" $TARGET
+	unset TARGET
+	TARGET="youtubedl"
+fi
+
+ffmpeg -y -i $TARGET -r $FPS -b 300000 -ss $STARTTIME -t $DURATION /tmp/ffmpegVideo.mp4
+ffmpeg -y -i /tmp/ffmpegVideo.mp4 -vcodec png /tmp/ffmpegFrames%05d.png
+
+echo "Resizing frames... "
+for ITERATION in /tmp/ffmpegFrames?????.png
+do
+	convert -resize $WIDTH $ITERATION /tmp/ffmpegFrames%05d.png
+done
+
+echo "Converting frames to gif... "
+for ITERATION in /tmp/ffmpegFrames?????.png
+do
+	convert -resize $WIDTH $ITERATION $ITERATION.gif
+done
+
+echo "Combining gif frames... "
+convert -delay 1x$FPS -loop 0 /tmp/ffmpegFrames?????.png.gif $FILENAME.gif
+ 
+#Some times this makes a smaller gif file, but most of the times it just eats a lot of memory and makes an even bigger file
+#echo "Optimizing final gif animation... "
+#convert -layers 'optimize' /tmp/animation.gif ''$FILENAME'_Optimized.gif'
+
+echo "Removing temporary files... "
+rm /tmp/ffmpegFrames*
+rm /tmp/ffmpegVideo.mp4
+
+echo "done"
