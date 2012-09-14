@@ -1,2 +1,5 @@
 yt2gif - convert youtube videos to animated gifs
-strapbown.html - sample of a simple js markdown renderer
+strapdown.html - sample of a simple js markdown renderer
+bashcheat.sh - bash cheatsheet script
+mynameis.sh - bash to set hostname in all the right places
+pushover.pl - perl sample pushover script
