@@ -1,0 +1,7 @@
+Canary - early warning system
+Sash - sysadmin shell
+	restart service
+	ls %/services
+	ls %/hosts
+	ls %/hosts/web05/services
+	restart %/hosts/web05/services/apache2
