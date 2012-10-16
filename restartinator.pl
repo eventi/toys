@@ -1,6 +1,5 @@
 #!/usr/bin/env perl
 
-#TODO - Reporting
 #TODO - Restart on normal exit?
 #TODO - Signal handling
 #TODO - STDOUT, STDERR
@@ -26,7 +25,10 @@ my $options = GetOptions(
 
 #TODO - get command from remainder of ARGS
 my @cmdargs = @ARGV;
-print STDERR ("ARGV: ",join('|',@ARGV),"\n");
+unless ($ARGV[0]) {
+	die "Usage $0 [ --debug ] [ --verbose ] [ --watch PATH ] -- COMMAND ARGS\n";
+}
+print STDERR ("ARGV: ",join('|',@ARGV),"\n") if $debug;
 my $command = join(' ',@cmdargs);
 
 # Proc::Simple::debug($debug);
