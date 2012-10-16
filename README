@@ -1,6 +1,7 @@
 yt2gif - convert youtube videos to animated gifs
 strapdown.html - sample of a simple js markdown renderer
 bashcheat.sh - bash cheatsheet script
+perlcheat.sh - perl cheatsheet script
 mynameis.sh - bash to set hostname in all the right places
 pushover.pl - perl sample pushover script
 restartinator.pl - restarts a script if a file changes (yep, I was watching Phineas and Ferb)
