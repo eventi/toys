@@ -1,8 +1,8 @@
 cat <<EOF >> cDc
 #  _   _
-# ((___)) Hacked by cDc
+# ((___))
 # [ x x ]     m00
 #  \   /
-#  (' ')
+#  (' ') your an idiot
 #   (U)
 EOF
