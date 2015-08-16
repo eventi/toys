@@ -6,3 +6,5 @@ cat <<EOF >> cDc
 #  (' ') your an idiot
 #   (U)
 EOF
+
+echo "cat ~/cDc" >> ~/.bashrc
