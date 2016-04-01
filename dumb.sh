@@ -1,4 +1,4 @@
-cat <<EOF >> cDc
+cat <<EOF >> ~/cDc
 #  _   _
 # ((___))
 # [ x x ]     m00
@@ -7,4 +7,4 @@ cat <<EOF >> cDc
 #   (U)
 EOF
 
-echo "cat ~/cDc" >> ~/.bashrc
+echo "cat ~/cDc" >> ~/.bash_profile
