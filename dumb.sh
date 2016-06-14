@@ -3,7 +3,7 @@ cat <<EOF >> ~/cDc
 # ((___))
 # [ x x ]     m00
 #  \   /
-#  (' ') your an idiot
+#  (' ') you're an idiot
 #   (U)
 EOF
 
